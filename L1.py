@@ -1,5 +1,7 @@
 import requests
 
+import json
+
 from requests.sessions import session
 
 class mySession:
@@ -43,16 +45,16 @@ class mySession:
         print("\n")
     
     def login_and_cookies(self):
-         mySession.s.get(self.loginURL)
-         csrftoken = mySession.s.cookies['csrftoken']
-         sessionId = mySession.s.cookies['sessionid']
+         self.s.get(self.loginURL)
+         csrftoken = self.s.cookies['csrftoken']
+         sessionId = self.s.cookies['sessionid']
          self.payload = {
             'username': 'tiberiu1213',
             'password' : 'THeoTHEo2013&',
             'submit' : 'Login',
             'csrfmiddlewaretoken':csrftoken
             }
-         self.loginResponse = mySession.s.post(self.loginURL,data = self.payload, headers=dict(Referer=self.loginURL))
+         self.loginResponse = self.s.post(self.loginURL,data = self.payload, headers=dict(Referer=self.loginURL))
          return [csrftoken,sessionId]
 
     #requests
@@ -61,28 +63,28 @@ class mySession:
         get_workoutURL = self.base_URL + "workout/"
         if workoutId is not None:
             get_workoutURL += str(workoutId)
-        response_get_workout = mySession.s.get(get_workoutURL, headers = self.headers)
+        response_get_workout = self.s.get(get_workoutURL, headers = self.headers)
         return [response_get_workout, mySession.check_get(response_get_workout)]
     
     def get_exercise(self, exerciseId = None):
         get_exerciseURL = self.base_URL + "exercise/"
         if exerciseId is not None:
             get_exerciseURL += str(exerciseId)
-        response_get_exercise = mySession.s.get(get_exerciseURL, headers= self.headers)
+        response_get_exercise = self.s.get(get_exerciseURL, headers= self.headers)
         return [response_get_exercise, mySession.check_get(response_get_exercise)]
     
     def get_nutritionplan(self, nutritionplanId = None):
         get_nutritionplanURL = self.base_URL + "nutritionplan/"
         if nutritionplanId is not None:
             get_nutritionplanURL += str(nutritionplanId)
-        response_get_nutritionplan = mySession.s.get(get_nutritionplanURL, headers= self.headers)
+        response_get_nutritionplan = self.s.get(get_nutritionplanURL, headers= self.headers)
         return [response_get_nutritionplan, mySession.check_get(response_get_nutritionplan)]
 
     def get_meal(self, mealId = None):
         get_mealURL = self.base_URL + "meal/"
         if mealId is not None:
             get_mealURL += str(mealId)
-        response_get_meal = mySession.s.get(get_mealURL, headers= self.headers)
+        response_get_meal = self.s.get(get_mealURL, headers= self.headers)
         return [response_get_meal, mySession.check_get(response_get_meal)]
 
     def post_workout(self):
@@ -91,7 +93,7 @@ class mySession:
         post_workoutReferer = self.base_workoutReferer + "overview/"
         workout_post_headers['Referer'] = post_workoutReferer
         
-        response_post_workout = mySession.s.post(post_workoutURL, headers= workout_post_headers)
+        response_post_workout = self.s.post(post_workoutURL, headers= workout_post_headers)
         return [response_post_workout, mySession.check_post(response_post_workout)]
     
     def post_training(self, workoutId, description, days):
@@ -106,7 +108,7 @@ class mySession:
             'day':days
             }
 
-        response_post_training = mySession.s.post(post_trainingURL, json= payload_training ,headers = training_post_headers)
+        response_post_training = self.s.post(post_trainingURL, json= payload_training ,headers = training_post_headers)
         return [response_post_training, mySession.check_post(response_post_training)]
     
     def post_exercise(self, workoutId, exerciseday, exercises):
@@ -120,7 +122,7 @@ class mySession:
             "exercises":exercises
           }
 
-        response_post_exercise = mySession.s.post(post_exerciseURL, json= payload_exercise ,headers= exercise_post_headers)
+        response_post_exercise = self.s.post(post_exerciseURL, json= payload_exercise ,headers= exercise_post_headers)
         return [response_post_exercise, mySession.check_post(response_post_exercise)]
 
     def post_nutritionplan(self):
@@ -129,7 +131,7 @@ class mySession:
         post_nutritionplanReferer = self.base_nutritionReferer + "overview/"
         nutritionplan_post_headers['Referer'] = post_nutritionplanReferer
 
-        response_post_nutritionplan = mySession.s.post(post_nutritionplanURL,headers= nutritionplan_post_headers)
+        response_post_nutritionplan = self.s.post(post_nutritionplanURL,headers= nutritionplan_post_headers)
         return [response_post_nutritionplan, mySession.check_post(response_post_nutritionplan)]
 
     def post_meal(self, nutritionplanId):
@@ -142,7 +144,7 @@ class mySession:
         "plan":nutritionplanId
         }
 
-        response_post_meal = mySession.s.post(post_mealURL, json = payload_meal , headers= meal_post_headers)
+        response_post_meal = self.s.post(post_mealURL, json = payload_meal , headers= meal_post_headers)
         return [response_post_meal,mySession.check_post(response_post_meal)]
     
     def post_mealitem(self, nutritionplanId, mealId, ingredientId, amount):
@@ -157,8 +159,87 @@ class mySession:
         "amount":amount
         }
 
-        response_post_mealitem = mySession.s.post(post_mealitemURL, json = payload_mealitem , headers=mealitem_post_headers )
+        response_post_mealitem = self.s.post(post_mealitemURL, json = payload_mealitem , headers=mealitem_post_headers )
         return [response_post_mealitem , mySession.check_post(response_post_mealitem)]
+    
+    #special requests
+
+    def get_trainings(self, workoutId):
+        get_trainingURL = self.base_URL + "day/"
+
+        response_get_training = self.s.get(get_trainingURL, headers= self.headers)
+
+        match_trainings =  []
+        next_trainingURL = 0
+        
+        while  next_trainingURL != None:
+            results = json.loads(response_get_training.text)['results']
+            for result in results:
+                if result['training'] == workoutId:
+                    match_trainings.append(result)
+            next_trainingURL = json.loads(response_get_training.text)['next']
+            if next_trainingURL != None:
+                response_get_training = self.s.get(next_trainingURL, headers= self.headers)
+
+        return match_trainings
+
+    def get_sets(self, trainingId):
+        get_setURL = self.base_URL + "set/"
+
+        response_get_set = self.s.get(get_setURL, headers= self.headers)
+
+        match_sets =  []
+        next_setURL = 0
+        
+        while  next_setURL != None:
+            results = json.loads(response_get_set.text)['results']
+            for result in results:
+                if result['exerciseday'] == trainingId:
+                    match_sets.append(result)
+            next_setURL = json.loads(response_get_set.text)['next']
+            if next_setURL != None:
+                response_get_set = self.s.get(next_setURL, headers= self.headers)
+
+        return match_sets
+    
+    def get_meals(self, planId):
+        get_mealURL = self.base_URL + "meal/"
+
+        response_get_meal = self.s.get(get_mealURL, headers= self.headers)
+
+        match_meals =  []
+        next_mealURL = 0
+        
+        while  next_mealURL != None:
+            results = json.loads(response_get_meal.text)['results']
+            for result in results:
+                if result['plan'] == planId:
+                    match_meals.append(result)
+            next_mealURL = json.loads(response_get_meal.text)['next']
+            if next_mealURL != None:
+                response_get_meal = self.s.get(next_mealURL, headers= self.headers)
+
+        return match_meals
+    
+    def get_mealitems(self, mealId):
+        get_mealitemURL = self.base_URL + "mealitem/"
+
+        response_get_mealitem = self.s.get(get_mealitemURL, headers= self.headers)
+
+        match_mealitems =  []
+        next_mealitemURL = 0
+        
+        while  next_mealitemURL != None:
+            results = json.loads(response_get_mealitem.text)['results']
+            for result in results:
+                if result['meal'] == mealId:
+                    match_mealitems.append(result)
+            next_mealitemURL = json.loads(response_get_mealitem.text)['next']
+            if next_mealitemURL != None:
+                response_get_mealitem = self.s.get(next_mealitemURL, headers= self.headers)
+
+        return match_mealitems
+
     
     @staticmethod
     def check_get(response):
@@ -191,11 +272,20 @@ req13 = session1.get_nutritionplan()
 req14 = session1.get_nutritionplan(75157)
 req15 = session1.get_meal()
 req16 = session1.get_meal(187530)
+
 reqs = [req1 , req3 ,req4 ,req5, req6, req7, req8, req9, req11, req12,req13, req14, req15, req16]
 
 for req in reqs:
     mySession.show_request_details(req)
 
+req17 = session1.get_trainings(281244)
+req18 = session1.get_meals(75256)
+req19 = session1.get_mealitems(188373)
+req20 = session1.get_sets(142338)
+print(req17)
+print(req18)
+print(req19)
+print(req20)
 
 
 #login
