@@ -59,33 +59,21 @@ class mySession:
 
     #requests
 
-    def get_workout(self, workoutId = None):
-        get_workoutURL = self.base_URL + "workout/"
-        if workoutId is not None:
-            get_workoutURL += str(workoutId)
-        response_get_workout = self.s.get(get_workoutURL, headers = self.headers)
-        return [response_get_workout, mySession.check_get(response_get_workout)]
-    
-    def get_exercise(self, exerciseId = None):
-        get_exerciseURL = self.base_URL + "exercise/"
-        if exerciseId is not None:
-            get_exerciseURL += str(exerciseId)
-        response_get_exercise = self.s.get(get_exerciseURL, headers= self.headers)
-        return [response_get_exercise, mySession.check_get(response_get_exercise)]
-    
-    def get_nutritionplan(self, nutritionplanId = None):
-        get_nutritionplanURL = self.base_URL + "nutritionplan/"
-        if nutritionplanId is not None:
-            get_nutritionplanURL += str(nutritionplanId)
-        response_get_nutritionplan = self.s.get(get_nutritionplanURL, headers= self.headers)
-        return [response_get_nutritionplan, mySession.check_get(response_get_nutritionplan)]
+    def get(self, type, id = None):
+        if type == "workout":
+            get_URL = self.base_URL + "workout/"
+        elif type == "exercise":
+            get_URL = self.base_URL + "exercise/"
+        elif type == "nutritionplan":
+            get_URL = self.base_URL + "nutritionplan/"
+        elif type == "meal":
+            get_URL = self.base_URL + "meal/"
+        if id is not None:
+            get_URL += str(id)
 
-    def get_meal(self, mealId = None):
-        get_mealURL = self.base_URL + "meal/"
-        if mealId is not None:
-            get_mealURL += str(mealId)
-        response_get_meal = self.s.get(get_mealURL, headers= self.headers)
-        return [response_get_meal, mySession.check_get(response_get_meal)]
+        response_get = self.s.get(get_URL, headers = self.headers)
+
+        return [response_get, mySession.check(response_get)]
 
     def post_workout(self):
         post_workoutURL = self.base_URL + "workout/"
@@ -94,7 +82,7 @@ class mySession:
         workout_post_headers['Referer'] = post_workoutReferer
         
         response_post_workout = self.s.post(post_workoutURL, headers= workout_post_headers)
-        return [response_post_workout, mySession.check_post(response_post_workout)]
+        return [response_post_workout, mySession.check(response_post_workout)]
     
     def post_training(self, workoutId, description, days):
         post_trainingURL = self.base_URL + "day/"
@@ -109,7 +97,7 @@ class mySession:
             }
 
         response_post_training = self.s.post(post_trainingURL, json= payload_training ,headers = training_post_headers)
-        return [response_post_training, mySession.check_post(response_post_training)]
+        return [response_post_training, mySession.check(response_post_training)]
     
     def post_exercise(self, workoutId, exerciseday, exercises):
         post_exerciseURL = self.base_URL + "set/"
@@ -123,7 +111,7 @@ class mySession:
           }
 
         response_post_exercise = self.s.post(post_exerciseURL, json= payload_exercise ,headers= exercise_post_headers)
-        return [response_post_exercise, mySession.check_post(response_post_exercise)]
+        return [response_post_exercise, mySession.check(response_post_exercise)]
 
     def post_nutritionplan(self):
         post_nutritionplanURL = self.base_URL + "nutritionplan/"
@@ -132,7 +120,7 @@ class mySession:
         nutritionplan_post_headers['Referer'] = post_nutritionplanReferer
 
         response_post_nutritionplan = self.s.post(post_nutritionplanURL,headers= nutritionplan_post_headers)
-        return [response_post_nutritionplan, mySession.check_post(response_post_nutritionplan)]
+        return [response_post_nutritionplan, mySession.check(response_post_nutritionplan)]
 
     def post_meal(self, nutritionplanId):
         post_mealURL = self.base_URL + "meal/"
@@ -145,7 +133,7 @@ class mySession:
         }
 
         response_post_meal = self.s.post(post_mealURL, json = payload_meal , headers= meal_post_headers)
-        return [response_post_meal,mySession.check_post(response_post_meal)]
+        return [response_post_meal,mySession.check(response_post_meal)]
     
     def post_mealitem(self, nutritionplanId, mealId, ingredientId, amount):
         post_mealitemURL = self.base_URL + "mealitem/"
@@ -160,7 +148,7 @@ class mySession:
         }
 
         response_post_mealitem = self.s.post(post_mealitemURL, json = payload_mealitem , headers=mealitem_post_headers )
-        return [response_post_mealitem , mySession.check_post(response_post_mealitem)]
+        return [response_post_mealitem , mySession.check(response_post_mealitem)]
     
     #special requests
 
@@ -241,37 +229,31 @@ class mySession:
         return match_mealitems
 
     
-    @staticmethod
-    def check_get(response):
+    def check(response):
         if (response.status_code == 200):
             return "Successful get request !"
-        else:
-            return "Erorr, something went wrong."
-    @staticmethod
-    def check_post(response):
-        if (response.status_code == 201):
+        elif (response.status_code == 201):
             return "Successful post request !"
         else:
             return "Erorr, something went wrong."
 
 
-
 session1 = mySession()
 
-req1 = session1.get_workout()
+req1 = session1.get("workout")
 req3 = session1.post_workout()
 req4 = session1.post_training(280895, 'mamamama', [6, 7])
 req5 = session1.post_exercise(280895, 142834, 279)
 req6 = session1.post_nutritionplan()
 req7 = session1.post_meal(75496)
 req8 = session1.post_mealitem(280895, 188455, 9842, 400)
-req9 = session1.get_workout(279811)
-req11 = session1.get_exercise()
-req12 = session1.get_exercise(345)
-req13 = session1.get_nutritionplan()
-req14 = session1.get_nutritionplan(75157)
-req15 = session1.get_meal()
-req16 = session1.get_meal(187530)
+req9 = session1.get("workout",279811)
+req11 = session1.get("exercise")
+req12 = session1.get("exercise", 345)
+req13 = session1.get("nutritionplan")
+req14 = session1.get("nutritionplan",75157)
+req15 = session1.get("meal")
+req16 = session1.get("meal",187530)
 
 reqs = [req1 , req3 ,req4 ,req5, req6, req7, req8, req9, req11, req12,req13, req14, req15, req16]
 
