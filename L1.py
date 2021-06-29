@@ -60,15 +60,9 @@ class mySession:
     #requests
 
     def get(self, type, id = None):
-        if type == "workout":
-            get_URL = self.base_URL + "workout/"
-        elif type == "exercise":
-            get_URL = self.base_URL + "exercise/"
-        elif type == "nutritionplan":
-            get_URL = self.base_URL + "nutritionplan/"
-        elif type == "meal":
-            get_URL = self.base_URL + "meal/"
-        if id is not None:
+        
+        get_URL = self.base_URL + type + "/"
+        if id:
             get_URL += str(id)
 
         response_get = self.s.get(get_URL, headers = self.headers)
