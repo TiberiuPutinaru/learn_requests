@@ -2,6 +2,8 @@ import requests
 
 import json
 
+import toml
+
 from requests.sessions import session
 
 class mySession:
@@ -230,38 +232,77 @@ class mySession:
             return "Successful post request !"
         else:
             return "Erorr, something went wrong."
+    # @staticmethod
+    # def dict_toml(req, dict, dict_el,dict_key):
+    #         #if dict is not emtpy
+    #         sub_dict = dict[dict_el]
+    #         if bool(sub_dict):
+    #             id = json.loads(req[0].text)['id']
+    #             rez_dict = sub_dict[dict_key]
+    #             return rez_dict
+    
+    def pass_toml(self,path):
+        with open(path) as file:
+            toml_data_dict = toml.load(file)
+        workouts_dict = toml_data_dict['workouts']
+
+        for workout_data in workouts_dict:
+            req_workout = self.post_workout()
+            mySession.show_request_details(req_workout)
+            workout_dict = workouts_dict[workout_data]
+            if bool(workout_dict):
+                workout_id = json.loads(req_workout[0].text)['id']
+                trainings_dict = workout_dict['trainings']
+
+                for training_data in trainings_dict:
+                    req_training = self.post_training(workout_id,'mmmmmmmm',[6,7])
+                    mySession.show_request_details(req_training)
+                    training_dict = trainings_dict[training_data]
+                    if(bool(training_dict)):
+                        training_id = json.loads(req_training[0].text)['id']
+                        exercises_dict = training_dict['exercises']
+
+                        for i in range (0,len(exercises_dict)):
+                            req_exercise = self.post_exercise(workout_id,training_id,279)
+                            mySession.show_request_details(req_exercise)
+                            
+                
+
+                
 
 
-session1 = mySession()
 
-req1 = session1.get("workout")
-req3 = session1.post_workout()
-req4 = session1.post_training(280895, 'mamamama', [6, 7])
-req5 = session1.post_exercise(280895, 142834, 279)
-req6 = session1.post_nutritionplan()
-req7 = session1.post_meal(75496)
-req8 = session1.post_mealitem(280895, 188455, 9842, 400)
-req9 = session1.get("workout",279811)
-req11 = session1.get("exercise")
-req12 = session1.get("exercise", 345)
-req13 = session1.get("nutritionplan")
-req14 = session1.get("nutritionplan",75157)
-req15 = session1.get("meal")
-req16 = session1.get("meal",187530)
 
-reqs = [req1 , req3 ,req4 ,req5, req6, req7, req8, req9, req11, req12,req13, req14, req15, req16]
+# session1 = mySession()
 
-for req in reqs:
-    mySession.show_request_details(req)
+# req1 = session1.get("workout")
+# req3 = session1.post_workout()
+# req4 = session1.post_training(280895, 'mamamama', [6, 7])
+# req5 = session1.post_exercise(280895, 142834, 279)
+# req6 = session1.post_nutritionplan()
+# req7 = session1.post_meal(75496)
+# req8 = session1.post_mealitem(280895, 188455, 9842, 400)
+# req9 = session1.get("workout",279811)
+# req11 = session1.get("exercise")
+# req12 = session1.get("exercise", 345)
+# req13 = session1.get("nutritionplan")
+# req14 = session1.get("nutritionplan",75157)
+# req15 = session1.get("meal")
+# req16 = session1.get("meal",187530)
 
-req17 = session1.get_trainings(281244)
-req18 = session1.get_meals(75256)
-req19 = session1.get_mealitems(188373)
-req20 = session1.get_sets(142338)
-print(req17)
-print(req18)
-print(req19)
-print(req20)
+# reqs = [req1 , req3 ,req4 ,req5, req6, req7, req8, req9, req11, req12,req13, req14, req15, req16]
+
+# for req in reqs:
+#     mySession.show_request_details(req)
+
+# req17 = session1.get_trainings(281244)
+# req18 = session1.get_meals(75256)
+# req19 = session1.get_mealitems(188373)
+# req20 = session1.get_sets(142338)
+# print(req17)
+# print(req18)
+# print(req19)
+# print(req20)
 
 
 #login

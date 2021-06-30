@@ -1,0 +1,7 @@
+
+[workouts.workout2]
+
+[workouts.workout1.trainings.training1]
+exercises = [ "exercise1", "exercise2", "exercise3",]
+
+[workouts.workout1.trainings.training2]
