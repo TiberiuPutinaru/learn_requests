@@ -38,20 +38,71 @@ session1 = mySession()
 # test_dict = {
 #     "workouts": {
 #         "workout1" : {
-#             "days" : {
-#                 "day1" : {
-#                     "exercises" : ["exercise1","exercise2","exercise3"]
+#             "trainings" : {
+#                 "training1" : {
+#                     "description":"ce frum e",
+#                     "days": [6,7],
+#                     "exercises" : {
+#                         "exercise1": {
+#                             "exerciseid":279
+#                             },
+#                         "exercise2": {
+#                             "exerciseid":279
+#                             },
+#                         "exercise3": {
+#                             "exerciseid":279
+#                             }
+#                         }
 #                 },
-#                 "day2" : {}
+#                 "training2" : {
+#                     "description":"ce frum e",
+#                     "days": [6,7]
+#                     }
 #             }
 #         },
 #         "workout2" : {}
 #     }
 # }
 
-# test_toml = toml.dumps(test_dict)
+
+# test_dict2 = {
+#     "nutritionplans": {
+#         "nutritionplan1" : {
+#             "meals" : {
+#                 "meal1" : {
+#                     "mealitems" : {
+#                         "mealitem1": {
+#                             "ingredientid":9842,
+#                             "amount":400
+#                             },
+#                         "mealitem2": {
+#                             "ingredientid":9842,
+#                             "amount":400
+#                             },
+#                         "mealitem3": {
+#                             "ingredientid":9842,
+#                             "amount":400
+#                             }
+#                         }
+#                 },
+#                 "meal2" : {}
+#             }
+#         },
+#         "nutritionplan2" : {}
+#     }
+# }
+
+# test_toml = toml.dumps(test_dict2)
 
 # print(test_toml)
 # print(toml_info)
 
-session1.pass_toml('C:\learn_req\data.toml')
+# test_dict1 = {
+#     "workouts": {}
+# }
+
+# test_toml1 = toml.dumps(test_dict1)
+
+session1.pass_toml('.\data.toml')
+
+# print(test_toml1)
