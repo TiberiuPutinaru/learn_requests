@@ -232,15 +232,65 @@ class mySession:
             return "Successful post request !"
         else:
             return "Erorr, something went wrong."
-    # @staticmethod
-    # def dict_toml(req, dict, dict_el,dict_key):
-    #         #if dict is not emtpy
-    #         sub_dict = dict[dict_el]
-    #         if bool(sub_dict):
-    #             id = json.loads(req[0].text)['id']
-    #             rez_dict = sub_dict[dict_key]
-    #             return rez_dict
+
+    #parsing_toml
+
+    def parse_workouts(self, workouts_dict):
+        for workout_value in workouts_dict.values():
+                req_workout = self.post_workout()
+
+                mySession.show_request_details(req_workout)
+                if bool(workout_value):
+                    workout_id = json.loads(req_workout[0].text)['id']
+                    trainings_dict = workout_value.get('trainings')
+
+                    self.parse_trainings(trainings_dict, workout_id)
+
+   
+    def parse_trainings(self, trainings_dict, workout_id):
+        for training_value in trainings_dict.values():
+            req_training = self.post_training(workout_id,training_value.get('description'),training_value.get('days'))
+                        
+            mySession.show_request_details(req_training)
+            if(training_value.get('exercises')):
+                training_id = json.loads(req_training[0].text)['id']
+                exercises_dict = training_value.get('exercises')
+
+                self.parse_exercises(exercises_dict, workout_id, training_id)
+
+    def parse_exercises(self, exercises_dict, workout_id, training_id):
+        for exercise_value in exercises_dict.values():
+            req_exercise = self.post_exercise(workout_id,training_id,exercise_value.get('exerciseid'))
+            mySession.show_request_details(req_exercise)
     
+    def parse_nutritionplans(self, nutritionplans_dict):
+        for nutritionplan_value in nutritionplans_dict.values():
+                req_nutritionplan = self.post_nutritionplan()
+                
+                mySession.show_request_details(req_nutritionplan)
+                if bool(nutritionplan_value):
+                    nutritionplan_id = json.loads(req_nutritionplan[0].text)['id']
+                    meals_dict = nutritionplan_value.get('meals')
+
+                    self.parse_meals(meals_dict, nutritionplan_id)
+    
+    def parse_meals(self, meals_dict, nutritionplan_id):
+        for meal_value in meals_dict.values():
+            req_meal = self.post_meal(nutritionplan_id)
+                        
+            mySession.show_request_details(req_meal)
+            if(meal_value.get('mealitems')):
+                meal_id = json.loads(req_meal[0].text)['id']
+                mealitems_dict = meal_value.get('mealitems')
+
+                self.parse_mealitems(mealitems_dict, nutritionplan_id, meal_id)
+
+    def parse_mealitems(self,mealitems_dict, nutritionplan_id, meal_id):
+        for mealitem_value in mealitems_dict.values():
+            req_mealitem = self.post_mealitem(nutritionplan_id,meal_id,mealitem_value.get('ingredientid'),mealitem_value.get('amount'))
+            mySession.show_request_details(req_mealitem)
+    
+
     def pass_toml(self,path):
         with open(path) as file:
             toml_data_dict = toml.load(file)
@@ -249,45 +299,10 @@ class mySession:
         nutritionplans_dict = toml_data_dict.get('nutritionplans')
 
         if workouts_dict:
-            for workout_value in workouts_dict.values():
-                req_workout = self.post_workout()
-                mySession.show_request_details(req_workout)
-                if bool(workout_value):
-                    workout_id = json.loads(req_workout[0].text)['id']
-                    trainings_dict = workout_value.get('trainings')
-
-                    for training_value in trainings_dict.values():
-                        req_training = self.post_training(workout_id,training_value.get('description'),training_value.get('days'))
-                        
-                        mySession.show_request_details(req_training)
-                        if(training_value.get('exercises')):
-                            training_id = json.loads(req_training[0].text)['id']
-                            exercises_dict = training_value.get('exercises')
-
-                            for exercise_value in exercises_dict.values():
-                                req_exercise = self.post_exercise(workout_id,training_id,exercise_value.get('exerciseid'))
-                                mySession.show_request_details(req_exercise)
+            self.parse_workouts(workouts_dict)
 
         if nutritionplans_dict:
-            for nutritionplan_value in nutritionplans_dict.values():
-                req_nutritionplan = self.post_nutritionplan()
-                mySession.show_request_details(req_nutritionplan)
-                if bool(nutritionplan_value):
-                    nutritionplan_id = json.loads(req_nutritionplan[0].text)['id']
-                    meals_dict = nutritionplan_value.get('meals')
-
-                    for meal_value in meals_dict.values():
-                        req_meal = self.post_meal(nutritionplan_id)
-                        
-                        mySession.show_request_details(req_meal)
-                        if(meal_value.get('mealitems')):
-                            meal_id = json.loads(req_meal[0].text)['id']
-                            mealitems_dict = meal_value.get('mealitems')
-
-                            for mealitem_value in mealitems_dict.values():
-                                req_mealitem = self.post_mealitem(nutritionplan_id,meal_id,mealitem_value.get('ingredientid'),mealitem_value.get('amount'))
-                                mySession.show_request_details(req_mealitem)
-            
+            self.parse_nutritionplans(nutritionplans_dict)
 
 
 
