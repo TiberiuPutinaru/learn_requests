@@ -6,13 +6,13 @@ with open('C:\learn_req\data.toml') as file:
 session1 = mySession()
 
 # req1 = session1.get("workout")
-# req3 = session1.post_workout()
+# req3 = session1.post_workout(), 
 # req4 = session1.post_training(280895, 'mamamama', [6, 7])
 #req5 = session1.post_exercise(28089544444444, 142834, 279)
 # req6 = session1.post_nutritionplan()
 # req7 = session1.post_meal(75496)
 # req8 = session1.post_mealitem(280895, 188455, 9842, 400)
-# req9 = session1.get("workout",279811)
+#req9 = session1.get("workout",279811)
 # req11 = session1.get("exercise")
 # req12 = session1.get("exercise", 345)
 # req13 = session1.get("nutritionplan")
@@ -33,6 +33,8 @@ session1 = mySession()
 # print(req18)
 # print(req19)
 # print(req20)
+
+# mySession.show_request_details(req9)
 
 # cum sa imi dau seama sa fac toml
 # test_dict = {

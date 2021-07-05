@@ -1,12 +1,13 @@
 import requests
-
 import json
-
 import toml
-
 from requests.sessions import session
 
 class mySession:
+    """
+    Creates an instance of an user login session on https://wger.de/en/user/login
+
+    """
 
     s = requests.session()
 
@@ -44,10 +45,11 @@ class mySession:
 
     @classmethod
     def show_request_details(cls, response_list):
-        """ Print the status_code and the content of a request and
+        """ 
+        Print the status_code and the content of a request and
             whether the request was made with success
 
-            response_list ([request, mySession.check(request)])
+            param <response_list>: ([request, mySession.check(request)])
 
         """
         print(response_list[1])
@@ -56,7 +58,8 @@ class mySession:
         print("\n")
     
     def login_and_cookies(self):
-        """ Returns the csrftoken and sessionId of a session
+        """ 
+        Returns the csrftoken and sessionId of a session
         """
         self.s.get(self.loginURL)
         csrftoken = self.s.cookies.get('csrftoken')
@@ -73,11 +76,11 @@ class mySession:
     #requests
 
     def get(self, type, id = None):
-        """ Makes any get request
+        """ 
+        Makes any get request
             
-            args:
-                type ( str ): object of the request
-                id ( int, optional): id of the request
+            param <type>: object of the request
+            param <id>: id of the request
 
             returns:
                 list: [response of the request, check(response)]
@@ -93,7 +96,8 @@ class mySession:
         return [response_get, mySession.check(response_get)]
 
     def post_workout(self):
-        """ Makes a post request for a workout
+        """ 
+        Makes a post request for a workout
 
             returns:
                 list: [response of the request, check(response)]
@@ -111,12 +115,12 @@ class mySession:
         return [response_post_workout, mySession.check(response_post_workout)]
     
     def post_training(self, workoutId, description, days):
-        """ Makes a post request for a training
+        """ 
+        Makes a post request for a training
 
-            args:
-                workoutId( int ): workout id where you want to add the training
-                description( str ): description of the training
-                days( list of int): the days of the week to make the training
+            param <workoutId>: workout id where you want to add the training
+            param <description>: description of the training
+            param <days>: the days of the week to make the training
 
             returns:
                 list: [response of the request, check(response)]
@@ -141,12 +145,12 @@ class mySession:
         return [response_post_training, mySession.check(response_post_training)]
     
     def post_exercise(self, workoutId, exerciseday, exercises):
-        """ Makes a post request for an exercise
+        """ 
+        Makes a post request for an exercise
 
-            args:
-                workoutId( int ): workout id where you want to add the exercise
-                exerciseday( int ): training id where you want to add the exercise
-                exercises( int ): the specific id of the exercise
+            param <workoutId>: workout id of the training where you want to add the exercise
+            param <exerciseday>: training id where you want to add the exercise
+            param <exercises>: the specific id of the exercise
 
             returns:
                 list: [response of the request, check(response)]
@@ -170,7 +174,8 @@ class mySession:
         return [response_post_exercise, mySession.check(response_post_exercise)]
 
     def post_nutritionplan(self):
-        """ Makes a post request for a nutritionplan
+        """ 
+        Makes a post request for a nutritionplan
 
             returns:
                 list: [response of the request, check(response)]
@@ -185,10 +190,10 @@ class mySession:
         return [response_post_nutritionplan, mySession.check(response_post_nutritionplan)]
 
     def post_meal(self, nutritionplanId):
-        """ Makes a post request for a meal
+        """ 
+        Makes a post request for a meal
 
-            args:
-                nutritionplanId( int ): nutritionplan id where you want to add the meal
+            param <nutritionplanId>: nutritionplan id  where you want to add the meal
 
             returns:
                 list: [response of the request, check(response)]
@@ -211,12 +216,12 @@ class mySession:
         return [response_post_meal,mySession.check(response_post_meal)]
     
     def post_mealitem(self, nutritionplanId, mealId, ingredientId, amount):
-        """ Makes a post request for a meal item
+        """ 
+        Makes a post request for a meal item
 
-            args:
-                nutritionplanId( int ): nutritionplan id where you want to add the meal item
-                mealId( int ): meal id where you want to add the meal item
-                amount( int ): the amount of the meal item
+            param <nutritionplanId>: nutritionplan id of the meal where you want to add the meal item
+            param <mealId>: meal id where you want to add the meal item
+            param <amount>: the amount of the meal item
 
             returns:
                 list: [response of the request, check(response)]
@@ -240,13 +245,13 @@ class mySession:
         response_post_mealitem = self.s.post(post_mealitemURL, json = payload_mealitem , headers=mealitem_post_headers )
         return [response_post_mealitem , mySession.check(response_post_mealitem)]
     
-    #special requests
+    #get requests for certain ids
 
     def get_trainings(self, workoutId):
-        """ Get the trainings of a specific workout
+        """ 
+        Get the trainings of a specific workout
 
-            args:
-                workoutId ( int ): workout id of the trainings you want to get
+            param <workoutId>: workout id of the trainings you want to get
             
             returns:
                 list: the trainings of the workout
@@ -273,10 +278,10 @@ class mySession:
         return match_trainings
 
     def get_sets(self, trainingId):
-        """ Get the sets of a specific training
+        """ 
+        Get the sets of a specific training
 
-            args:
-                trainingId ( int ): training id of the sets you want to get
+            param <trainingId>: training id of the sets you want to get
             
             returns:
                 list: the sets of the workout
@@ -304,10 +309,10 @@ class mySession:
         return match_sets
     
     def get_meals(self, planId):
-        """ Get the meals of a specific nutritionplan ( plan )
+        """ 
+        Get the meals of a specific nutritionplan ( plan )
 
-            args:
-                planId ( int ): plan id of the meals you want to get
+            param <planId>: plan id of the meals you want to get
             
             returns:
                 list: the meals of the workout
@@ -334,10 +339,10 @@ class mySession:
         return match_meals
     
     def get_mealitems(self, mealId):
-        """ Get the mealitems of a specific meal
+        """ 
+        Get the mealitems of a specific meal
 
-            args:
-                mealId ( int ): meal id of the mealitems you want to get
+            param <mealId>: meal id of the mealitems you want to get
             
             returns:
                 list: the mealitems of the meal
@@ -365,35 +370,33 @@ class mySession:
 
     
     def check(response):
-        """ Check a request
+        """ 
+        Check a request with .ok method
 
-            args:
-                response: the response of a request
+            param <response>: the response of a request
             
             returns:
                 str: whether the request was successful or not
         """
-        if (response.status_code == 200):
-            return "Successful get request !"
-        elif (response.status_code == 201):
-            return "Successful post request !"
+        if (response.ok):
+            return "Successful request !"
         else:
             return "Erorr, something went wrong."
 
     #parsing toml
 
     def parse_workouts(self, workouts_dict):
-        """ Parse the workouts information from a toml
+        """ 
+        Parse the workouts information from a toml
 
-            args:
-                workouts_dict ( dict ): the workouts dictionary resulted from the toml
+            param <workouts_dict>: the workouts dictionary resulted from the toml
             
         """
 
         # make a post request for every workout
         for workout_value in workouts_dict.values():
                 req_workout = self.post_workout()
-
+                
                 mySession.show_request_details(req_workout)
                 # if workout has values get the id of the workout created and the trainings values
                 if workout_value:
@@ -404,11 +407,11 @@ class mySession:
 
    
     def parse_trainings(self, trainings_dict, workout_id):
-        """ Parse the trainings information from a toml
+        """ 
+        Parse the trainings information from a toml
 
-            args:
-                trainings_dict ( dict ): the trainings dictionary resulted from the toml
-                workout_id ( int ): the workout id of the trainings
+            param <trainings_dict>: the trainings dictionary resulted from the toml
+            param <workout_id>: the workout id of the trainings
         """
 
         # make a post request for every training
@@ -424,12 +427,12 @@ class mySession:
                 self.parse_exercises(exercises_dict, workout_id, training_id)
 
     def parse_exercises(self, exercises_dict, workout_id, training_id):
-        """ Parse the exercises information from a toml
+        """ 
+        Parse the exercises information from a toml
 
-            args:
-                exercises_dict ( dict ): the exercises dictionary resulted from the toml
-                workout_id ( int ): the workout id of the exercises
-                training_id ( int ): the workout id of the exercises
+            param <exercises_dict>: the exercises dictionary resulted from the toml
+            param <workout_id>: the workout id of the exercises
+            param <training_id>: the workout id of the exercises
         """
         # make a post request for every exercise
         for exercise_value in exercises_dict.values():
@@ -437,10 +440,10 @@ class mySession:
             mySession.show_request_details(req_exercise)
     
     def parse_nutritionplans(self, nutritionplans_dict):
-        """ Parse the nutritionplans information from a toml
+        """ 
+        Parse the nutritionplans information from a toml
 
-            args:
-                nutritionplans_dict ( dict ): the nutritionplans dictionary resulted from the toml
+            param <nutritionplans_dict>: the nutritionplans dictionary resulted from the toml
             
         """
         # make a post request for every nutritionplan
@@ -456,11 +459,11 @@ class mySession:
                     self.parse_meals(meals_dict, nutritionplan_id)
     
     def parse_meals(self, meals_dict, nutritionplan_id):
-        """ Parse the meals information from a toml
+        """ 
+        Parse the meals information from a toml
 
-            args:
-                meals_dict ( dict ): the meals dictionary resulted from the toml
-                nutritionplan_id ( int ): the nutritionplan id of the meals
+            param <meals_dict>: the meals dictionary resulted from the toml
+            param <nutritionplan_id>: the nutritionplan id of the meals
         """
 
         # make a post request for every meal
@@ -476,12 +479,12 @@ class mySession:
                 self.parse_mealitems(mealitems_dict, nutritionplan_id, meal_id)
 
     def parse_mealitems(self,mealitems_dict, nutritionplan_id, meal_id):
-         """ Parse the mealitems information from a toml
+         """ 
+         Parse the mealitems information from a toml
 
-            args:
-                mealitems_dict ( dict ): the mealitems dictionary resulted from the toml
-                nutritionplan_id ( int ): the nutritionplan id of the mealitems
-                meal_id ( int ): the meal id of the mealitems
+            param <mealitems_dict>: the mealitems dictionary resulted from the toml
+            param <nutritionplan_id>: the nutritionplan id of the mealitems
+            param <meal_id>: the meal id of the mealitems
         """
         # make a post request for every mealitem
          for mealitem_value in mealitems_dict.values():
@@ -490,10 +493,10 @@ class mySession:
     
 
     def pass_toml(self,path):
-        """Get input requests from a toml
+        """
+        Get input requests from a toml
 
-            args:
-                path( str ): path of the toml
+            param <path>: path of the toml
         """
         # convert TOML into dict
         with open(path) as file:
