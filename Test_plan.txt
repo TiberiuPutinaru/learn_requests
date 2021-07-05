@@ -1,151 +1,143 @@
 1. Get request for a certain workout
 
    Scenario:
-   We want to test that when a get request is performed for a certain workout, the respose of the request is
-   200 and that it contains the json with the details of the workout
+   Test a get request performed for a certain workout
    
    Steps:
-   First we call the get method: get("workout", existent workout id)
-   Then we create a testing function which has to verify that in the response of call is the status code 200
-   and that the content contains the workout id which the call has been made with and also the creation date, the name
-   and the description of the workout
+   1. Get a certain workout 
+   2. Analyze response code
+   3. Analyze the content
    
 2. Get request for an unexisting workout
 
    Scenario:
-   We want to test that when a get request is performed for an unexisting workout, the respose of the request is
-   404.
+   Test a get request performed for an unexisting workout
 	
    Steps:
-   First we call the get method: get("workout", unexistent workout id)
-   Then we create a testing function which has to verify that in the response of call is the status code 404.
+   1. Get an unexisting workout 
+   2. Analyze response code
+   3. Analyze the content
 
 3. Get request for a certain exercise
 
    Scenario:
-   We want to test that when a get request is performed for a certain exercise, he respose of the request is
-   200 and that it contains the json with the details of the exercise.
+   Test a get request performed for a certain exercise.
 	
    Steps:
-   First we call the get method: get("exercise", existent exercise id)
-   Then we create a testing function which has to verify that in the response of call is the status code 200
-   and that the content contains the exercise id which the call has been made with and multiple details about this exercise.
+   1. Get a certain exercise
+   2. Analyze response code
+   3. Analyze the content
 
 4. Get request for an unexisting exercise
 
    Scenario:
-   We want to test that when a get request is performed for an unexisting exercise, the respose of the request is
-   404.
+   Test a get request performed for an unexisting exercise
 	
    Steps:
-   First we call the get method: get("exercise", unexistent exercise id)
-   Then we create a testing function which has to verify that in the response of call is the status code 404.
+   1. Get an unexisting exercise
+   2. Analyze response code
+   3. Analyze the content
 
 5. Get request for all workouts
 
    Scenario:
-   We want to test that when a get request is performed for all workouts, the respose of the request is
-   200 and that it contains the json with the details of the workouts
+   Test a get request performed for an all workouts
    
    Steps:
-   First we call the get method: get("workout")
-   Then we create a testing function which has to verify that in the response of call is the status code 200
-   and that the content contains the count (number of existing workouts) and multiple details about those workouts.
+   1. Get all workouts
+   2. Analyze response code
+   3. Analyze the content
 
 6. Get request for all exercises
 
    Scenario:
-   We want to test that when a get request is performed for all exercises, the respose of the request is
-   200 and that it contains the json with the details of the exercises
+   Test a get request performed for an all exercises
    
    Steps:
-   First we call the get method: get("exercises")
-   Then we create a testing function which has to verify that in the response of call is the status code 200
-   and that the content contains the count (number of existing exercises) and multiple details about those exercises.
+   1. Get all exercises
+   2. Analyze response code
+   3. Analyze the content.
 
 7. Post request for a workout
 
    Scenario:
-   We want to test that when a post request is performed in order to create a workout, the respose of the request is
-   201 and that it contains the json with the details of the created workout.
+   Test a post request performed for a workout
    
    Steps:
-   First we call the get method: post_workout()
-   Then we create a testing function which has to verify that in the response of call is the status code 201
-   and that the content contains the workout id of created workout and also the creation date, the name
-   and the description of the workout
+   1. Create a workout
+   2. Make a get on the previously created workout
+   3. Analyze response code
+   4. Analyze the content.
+
 
 8. Post request for a training
 
    Scenario:
-   We want to test that when a post request is performed in order to create a training, the respose of the request is
-   201 and that it contains the json with the details of the created training.
+   Test a post request performed for a training
    
    Steps:
-   First we call the get method: post_training(existent workout id, normal description, normal days)
-   Then we create a testing function which has to verify that in the response of call is the status code 201
-   and that the content contains the training id of created training and also the workout id, the description
-   and the day we pass as parameters at the method call.
+   1. Create a training
+   2. Make a get on the previously created training
+   3. Analyze response code
+   4. Analyze the content.
 
 9. Post request for a training on an unexisting workout
 
    Scenario:
-   We want to test that when a post request is performed in order to create a training on an unexisting workout,
-   the respose of the request is NOT 201.
+   Test a post request performed for a training on an unexisting workout
 
    Steps:
-   First we call the get method: post_training(unexistent workout id, normal description, normal days)
-   Then we create a testing function which has to verify that in the response of call is  NOT the status code 201.
-
+   1. Create a training on an unexising workout
+   2. Analyze response code
+   3. Analyze the content. 
 
 10. Post request for a training with unexisting days
 
    Scenario:
-   We want to test that when a post request is performed in order to create a training with unexisting days of week
-   greater than 7, the respose of the request is NOT 201.
+   Test a post request performed for a training with unexisting days
 
    Steps:
-   First we call the get method: post_training(existent workout id, normal description, unexistent days)
-   Then we create a testing function which has to verify that in the response of call is NOT the status code 201.
+   1. Create a training with unexisting days
+   2. Analyze response code
+   3. Analyze the content. 
 
 11. Post request for an exercise
 
    Scenario:
-   We want to test that when a post request is performed in order to add an exercise, the respose of the request is 201.
+   Test a post request performed for an exercise
 
    Steps:
-   First we call the get method: post_exercise(existent workout id, existent trainingid, existent exercise id)
-   Then we create a testing function which has to verify that in the response of call is the status code 201 and
-   that the content contains the exercise id of created exercise and also the training id we pass as parameters
-   at the method call with the sets and the order of the exercise.
+   1. Post an exercise
+   2. Make a get on the previously created exercise
+   3. Analyze response code
+   4. Analyze the content.
 
 12. Post request for an exercise with unexisting training id
 
    Scenario:
-   We want to test that when a post request is performed in order to add an exercise with an unexising training id,
-    the respose of the request is NOT 201.
+   Test a post request performed for an exercise with unexisting training id.
 
    Steps:
-   First we call the get method: post_exercise(existent workout id, unexistent trainingid, existent exercise id)
-   Then we create a testing function which has to verify that in the response of call is NOT the status code 201.
+   1. Post an exercise with unexisting training id
+   2. Analyze response code
+   3. Analyze the content.
 
 13. Post request for an exercise with unexisting exercise id
 
    Scenario:
-   We want to test that when a post request is performed in order to add an exercise with an unexising exercise id,
-   the respose of the request is NOT 201.
+   Test a post request performed for an exercise with unexisting exercise id.
 
    Steps:
-   First we call the get method: post_exercise(existent workout id, existent trainingid, unexistent exercise id)
-   Then we create a testing function which has to verify that in the response of call is NOT the status code 201.
+   1.Post an exercise with unexisting exercise id
+   2. Analyze response code
+   3. Analyze the content.
 
 14. Post request for an exercise with unexisting workout id
 
    Scenario:
-   We want to test that when a post request is performed in order to add an exercise with an unexising workout id,
-   the respose of the request is NOT 201.
+   Test a post request performed for an exercise with unexisting workout id.
  
    Steps:
-   First we call the get method: post_exercise(existent workout id, unexistent trainingid, existent exercise id)
-   Then we create a testing function which has to verify that in the response of call is NOT the status code 201.
-
+   1.Post an exercise with unexisting workout id
+   2. Analyze response code
+   3. Analyze the content.
