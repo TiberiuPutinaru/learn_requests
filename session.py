@@ -49,7 +49,7 @@ class mySession:
         Print the status_code and the content of a request and
             whether the request was made with success
 
-            param <response_list>: ([request, mySession.check(request)])
+        :param response_list: ([request, mySession.check(request)])
 
         """
         print(response_list[1])
@@ -79,11 +79,11 @@ class mySession:
         """ 
         Makes any get request
             
-            param <type>: object of the request
-            param <id>: id of the request
+        :param type: object of the request
+        :param id: id of the request
 
-            returns:
-                list: [response of the request, check(response)]
+        returns:
+            list: [response of the request, check(response)]
         """
         # create the URL by adding type and id
         get_URL = self.base_URL + type + "/"
@@ -99,8 +99,8 @@ class mySession:
         """ 
         Makes a post request for a workout
 
-            returns:
-                list: [response of the request, check(response)]
+        returns:
+            list: [response of the request, check(response)]
         """
         # create the URL
         post_workoutURL = self.base_URL + "workout/"
@@ -118,12 +118,12 @@ class mySession:
         """ 
         Makes a post request for a training
 
-            param <workoutId>: workout id where you want to add the training
-            param <description>: description of the training
-            param <days>: the days of the week to make the training
+        :param workoutId: workout id where you want to add the training
+        :param description: description of the training
+        :param days: the days of the week to make the training
 
-            returns:
-                list: [response of the request, check(response)]
+        returns:
+            list: [response of the request, check(response)]
         """
         # create the URL
         post_trainingURL = self.base_URL + "day/"
@@ -148,12 +148,12 @@ class mySession:
         """ 
         Makes a post request for an exercise
 
-            param <workoutId>: workout id of the training where you want to add the exercise
-            param <exerciseday>: training id where you want to add the exercise
-            param <exercises>: the specific id of the exercise
+        :param workoutId: workout id of the training where you want to add the exercise
+        :param exerciseday: training id where you want to add the exercise
+        :param exercises: the specific id of the exercise
 
-            returns:
-                list: [response of the request, check(response)]
+        returns:
+            list: [response of the request, check(response)]
         """
         # create the URL
         post_exerciseURL = self.base_URL + "set/"
@@ -177,8 +177,8 @@ class mySession:
         """ 
         Makes a post request for a nutritionplan
 
-            returns:
-                list: [response of the request, check(response)]
+        returns:
+            list: [response of the request, check(response)]
         """
 
         post_nutritionplanURL = self.base_URL + "nutritionplan/"
@@ -193,10 +193,10 @@ class mySession:
         """ 
         Makes a post request for a meal
 
-            param <nutritionplanId>: nutritionplan id  where you want to add the meal
+        :param nutritionplanId: nutritionplan id  where you want to add the meal
 
-            returns:
-                list: [response of the request, check(response)]
+        returns:
+            list: [response of the request, check(response)]
         """
         # create the URL
         post_mealURL = self.base_URL + "meal/"
@@ -219,12 +219,12 @@ class mySession:
         """ 
         Makes a post request for a meal item
 
-            param <nutritionplanId>: nutritionplan id of the meal where you want to add the meal item
-            param <mealId>: meal id where you want to add the meal item
-            param <amount>: the amount of the meal item
+        :param nutritionplanId: nutritionplan id of the meal where you want to add the meal item
+        :param mealId: meal id where you want to add the meal item
+        :param amount: the amount of the meal item
 
-            returns:
-                list: [response of the request, check(response)]
+        returns:
+            list: [response of the request, check(response)]
         """
         # create the URL
         post_mealitemURL = self.base_URL + "mealitem/"
@@ -251,10 +251,10 @@ class mySession:
         """ 
         Get the trainings of a specific workout
 
-            param <workoutId>: workout id of the trainings you want to get
+        :param workoutId: workout id of the trainings you want to get
             
-            returns:
-                list: the trainings of the workout
+        returns:
+            list: the trainings of the workout
         """
         # create the URL
         get_trainingURL = self.base_URL + "day/"
@@ -281,10 +281,10 @@ class mySession:
         """ 
         Get the sets of a specific training
 
-            param <trainingId>: training id of the sets you want to get
+        :param trainingId: training id of the sets you want to get
             
-            returns:
-                list: the sets of the workout
+        returns:
+            list: the sets of the workout
         """
 
         # create the URL
@@ -312,10 +312,10 @@ class mySession:
         """ 
         Get the meals of a specific nutritionplan ( plan )
 
-            param <planId>: plan id of the meals you want to get
+        :param planId: plan id of the meals you want to get
             
-            returns:
-                list: the meals of the workout
+        returns:
+            list: the meals of the workout
         """
         # create the URL
         get_mealURL = self.base_URL + "meal/"
@@ -342,10 +342,10 @@ class mySession:
         """ 
         Get the mealitems of a specific meal
 
-            param <mealId>: meal id of the mealitems you want to get
+        :param mealId: meal id of the mealitems you want to get
             
-            returns:
-                list: the mealitems of the meal
+        returns:
+            list: the mealitems of the meal
         """
         # create the URL
         get_mealitemURL = self.base_URL + "mealitem/"
@@ -373,10 +373,10 @@ class mySession:
         """ 
         Check a request with .ok method
 
-            param <response>: the response of a request
+        :param <response>: the response of a request
             
-            returns:
-                str: whether the request was successful or not
+        returns:
+            str: whether the request was successful or not
         """
         if (response.ok):
             return "Successful request !"
@@ -389,7 +389,7 @@ class mySession:
         """ 
         Parse the workouts information from a toml
 
-            param <workouts_dict>: the workouts dictionary resulted from the toml
+        :param workouts_dict: the workouts dictionary resulted from the toml
             
         """
 
@@ -410,8 +410,8 @@ class mySession:
         """ 
         Parse the trainings information from a toml
 
-            param <trainings_dict>: the trainings dictionary resulted from the toml
-            param <workout_id>: the workout id of the trainings
+        :param trainings_dict: the trainings dictionary resulted from the toml
+        :param workout_id: the workout id of the trainings
         """
 
         # make a post request for every training
@@ -430,9 +430,9 @@ class mySession:
         """ 
         Parse the exercises information from a toml
 
-            param <exercises_dict>: the exercises dictionary resulted from the toml
-            param <workout_id>: the workout id of the exercises
-            param <training_id>: the workout id of the exercises
+        :param exercises_dict: the exercises dictionary resulted from the toml
+        :param workout_id: the workout id of the exercises
+        :param training_id: the workout id of the exercises
         """
         # make a post request for every exercise
         for exercise_value in exercises_dict.values():
@@ -443,7 +443,7 @@ class mySession:
         """ 
         Parse the nutritionplans information from a toml
 
-            param <nutritionplans_dict>: the nutritionplans dictionary resulted from the toml
+        :param nutritionplans_dict: the nutritionplans dictionary resulted from the toml
             
         """
         # make a post request for every nutritionplan
@@ -462,8 +462,8 @@ class mySession:
         """ 
         Parse the meals information from a toml
 
-            param <meals_dict>: the meals dictionary resulted from the toml
-            param <nutritionplan_id>: the nutritionplan id of the meals
+        :param meals_dict: the meals dictionary resulted from the toml
+        :param nutritionplan_id: the nutritionplan id of the meals
         """
 
         # make a post request for every meal
@@ -482,9 +482,9 @@ class mySession:
          """ 
          Parse the mealitems information from a toml
 
-            param <mealitems_dict>: the mealitems dictionary resulted from the toml
-            param <nutritionplan_id>: the nutritionplan id of the mealitems
-            param <meal_id>: the meal id of the mealitems
+        :param mealitems_dict: the mealitems dictionary resulted from the toml
+        :param nutritionplan_id: the nutritionplan id of the mealitems
+        :param meal_id: the meal id of the mealitems
         """
         # make a post request for every mealitem
          for mealitem_value in mealitems_dict.values():
@@ -496,7 +496,7 @@ class mySession:
         """
         Get input requests from a toml
 
-            param <path>: path of the toml
+        :param path: path of the toml
         """
         # convert TOML into dict
         with open(path) as file:
@@ -513,162 +513,3 @@ class mySession:
         if nutritionplans_dict:
             self.parse_nutritionplans(nutritionplans_dict)
 
-
-
-
-# session1 = mySession()
-
-# req1 = session1.get("workout")
-# req3 = session1.post_workout()
-# req4 = session1.post_training(280895, 'mamamama', [6, 7])
-# req5 = session1.post_exercise(280895, 142834, 279)
-# req6 = session1.post_nutritionplan()
-# req7 = session1.post_meal(75496)
-# req8 = session1.post_mealitem(280895, 188455, 9842, 400)
-# req9 = session1.get("workout",279811)
-# req11 = session1.get("exercise")
-# req12 = session1.get("exercise", 345)
-# req13 = session1.get("nutritionplan")
-# req14 = session1.get("nutritionplan",75157)
-# req15 = session1.get("meal")
-# req16 = session1.get("meal",187530)
-
-# reqs = [req1 , req3 ,req4 ,req5, req6, req7, req8, req9, req11, req12,req13, req14, req15, req16]
-
-# for req in reqs:
-#     mySession.show_request_details(req)
-
-# req17 = session1.get_trainings(281244)
-# req18 = session1.get_meals(75256)
-# req19 = session1.get_mealitems(188373)
-# req20 = session1.get_sets(142338)
-# print(req17)
-# print(req18)
-# print(req19)
-# print(req20)
-
-
-#login
-# loginURL = "https://wger.de/en/user/login"
-
-# s=mySession.s
-# a = s.get(loginURL)
-# csrftoken = s.cookies['csrftoken']
-# sessionId = s.cookies['sessionid']
-# print(csrftoken)
-# print('\n')
-
-
-# payload = {
-#     'username': 'tiberiu1213',
-#     'password' : 'THeoTHEo2013&',
-#     'submit' : 'Login',
-#     'csrfmiddlewaretoken':csrftoken
-# }
-
-
-
-# response = s.post(loginURL,data = payload, headers=dict(Referer=loginURL))
-# #print(response.status_code)
-# print(response.content)
-
-#getworkout
-
-# get_workoutURL = "https://wger.de/api/v2/workout"
-# response1 = s.get(get_workoutURL)
-# # print(response1.status_code)
-# # print(response1.content)
-# # print("\n")
-
-
-# #getexercise
-
-# get_exerciseURL = "https://wger.de/api/v2/exercise"
-# response2 = s.get(get_exerciseURL)
-# # print(response2.status_code)
-# # print(response2.content)
-
-# #getaspecificworkout
-
-# get_spworkoutURL = "https://wger.de/api/v2/workout/279811"
-# response3 = s.get(get_spworkoutURL)
-# print(response3.status_code)
-# print(response3.content)
-
-# #getaspecificexercise
-
-# get_spexerciseURL = "https://wger.de/api/v2/exercise/345"
-# response4 = s.get(get_spexerciseURL)
-# # print(response4.status_code)
-# # print(response4.content)
-
-# #getnutritionplan
-
-# get_nutritionplanURL = "https://wger.de/api/v2/nutritionplan/"
-# response5 = s.get(get_nutritionplanURL)
-# # print(response5.status_code)
-# # print(response5.content)
-# # print("\n")
-
-# #getmeal
-
-# get_mealURL = "https://wger.de/api/v2/meal"
-# response6 = s.get(get_mealURL)
-# # print(response6.status_code)
-# # print(response6.content)
-# # print("\n")
-
-# #getspecific nutrition plan
-
-# get_spnutritionplanURL = "https://wger.de/api/v2/nutritionplan/75157"
-# response7 = s.get(get_spnutritionplanURL)
-# # print(response7.status_code)
-# # print(response7.content)
-# # print("\n")
-
-# #getspecific meal
-
-# get_spmealURL = "https://wger.de/api/v2/meal/187530"
-# response8 = s.get(get_spmealURL)
-# print(response8.status_code)
-# print(response8.content)
-# print("\n")
-
-#post workout
-
-# post_workoutURL = "https://wger.de/api/v2/workout/"
-# post_workoutReferer = "https://wger.de/en/workout/overview"
-# post_workout_headers = {
-#     'Content-Type': 'application/json',
-#     'Referer': post_workoutReferer,
-#     'X-CSRFToken' : csrftoken,
-#     'Authorization' : 'Token bd9ecc45b397f0e22bd0a8bd3304010ab4b586d8',
-#     'Cookie':f'csrftoken={csrftoken}; sessionid={sessionId}'
-# }
-# response9 = s.post(post_workoutURL, headers=post_workout_headers)
-# print(response9.status_code)
-# print(response9.content)
-# #print(response9.cookies)
-# print("\n")
-
-#post add training to workout
-
-# payload_training = {
-#     'training':280895,
-#     'description':'ssssssssssss',
-#     'day':[6,7]
-# }
-
-# post_trainingURL = "https://wger.de/api/v2/day/"
-# post_trainingReferer = "https://wger.de/en/workout/280895/view/"
-# post_training_headers = {
-#     'Content-Type': 'application/json',
-#     'Referer': post_trainingReferer,
-#     'X-CSRFToken' : csrftoken,
-#     'Authorization' : 'Token bd9ecc45b397f0e22bd0a8bd3304010ab4b586d8',
-#     'Cookie':f'csrftoken={csrftoken}; sessionid={sessionId}'
-# }
-# response10 = s.post(post_trainingURL, json = payload_training, headers=post_training_headers)
-# print(response10.status_code)
-# print(response10.content)
-# print("\n")

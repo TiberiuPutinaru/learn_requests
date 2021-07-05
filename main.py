@@ -1,14 +1,13 @@
 from session import mySession
 import toml
-with open('C:\learn_req\data.toml') as file:
-    toml_info = toml.load(file)
+
 
 session1 = mySession()
 
 # req1 = session1.get("workout")
 # req3 = session1.post_workout(), 
 # req4 = session1.post_training(280895, 'mamamama', [6, 7])
-#req5 = session1.post_exercise(28089544444444, 142834, 279)
+# req5 = session1.post_exercise(28089544444444, 142834, 279)
 # req6 = session1.post_nutritionplan()
 # req7 = session1.post_meal(75496)
 # req8 = session1.post_mealitem(280895, 188455, 9842, 400)
@@ -96,15 +95,5 @@ session1 = mySession()
 
 # test_toml = toml.dumps(test_dict2)
 
-# print(test_toml)
-# print(toml_info)
-
-# test_dict1 = {
-#     "workouts": {}
-# }
-
-# test_toml1 = toml.dumps(test_dict1)
 
 session1.pass_toml('.\data.toml')
-
-# print(test_toml1)
