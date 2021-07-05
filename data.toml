@@ -1,0 +1,34 @@
+[workouts.workout2]
+
+[workouts.workout1.trainings.training1]
+description = "ce frum e"
+days = [ 6, 7,]
+
+[workouts.workout1.trainings.training2]
+description = "ce frum e 22"
+days = [ 4, 5,]
+
+[workouts.workout1.trainings.training1.exercises.exercise1]
+exerciseid = 279
+
+[workouts.workout1.trainings.training1.exercises.exercise2]
+exerciseid = 279
+
+[workouts.workout1.trainings.training1.exercises.exercise3]
+exerciseid = 279
+
+[nutritionplans.nutritionplan2]
+
+[nutritionplans.nutritionplan1.meals.meal2]
+
+[nutritionplans.nutritionplan1.meals.meal1.mealitems.mealitem1]
+ingredientid = 9842
+amount = 400
+
+[nutritionplans.nutritionplan1.meals.meal1.mealitems.mealitem2]
+ingredientid = 9842
+amount = 400
+
+[nutritionplans.nutritionplan1.meals.meal1.mealitems.mealitem3]
+ingredientid = 9842
+amount = 400
