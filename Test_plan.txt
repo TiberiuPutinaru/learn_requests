@@ -41,7 +41,7 @@
 5. Get request for all workouts
 
    Scenario:
-   Test a get request performed for an all workouts
+   Test a get request performed for all workouts
    
    Steps:
    1. Get all workouts
@@ -51,7 +51,7 @@
 6. Get request for all exercises
 
    Scenario:
-   Test a get request performed for an all exercises
+   Test a get request performed for all exercises
    
    Steps:
    1. Get all exercises
@@ -128,7 +128,7 @@
    Test a post request performed for an exercise with unexisting exercise id.
 
    Steps:
-   1.Post an exercise with unexisting exercise id
+   1. Post an exercise with unexisting exercise id
    2. Analyze response code
    3. Analyze the content.
 
@@ -138,6 +138,95 @@
    Test a post request performed for an exercise with unexisting workout id.
  
    Steps:
-   1.Post an exercise with unexisting workout id
+   1. Post an exercise with unexisting workout id
    2. Analyze response code
    3. Analyze the content.
+
+15. Many post requests for a workout
+   
+   Scenario:
+   Test a big number of post requests performed for a workout
+
+   Steps:
+   1. Post a big number of workouts
+   2. Make a get on the previously created workouts
+   3. Analyze response code
+   4. Analyze the content.
+
+16. Many post requests for a training
+   
+   Scenario:
+   Test a big number of post requests performed for a training
+
+   Steps:
+   1. Post a big number of trainings
+   2. Make a get on the previously created trainings
+   3. Analyze response code
+   4. Analyze the content.
+
+17. Many post requests for an exercise
+   
+   Scenario:
+   Test a big number of post requests performed for an exercise
+
+   Steps:
+   1. Post a big number of exercises
+   2. Make a get on the previously created exercises
+   3. Analyze response code
+   4. Analyze the content.
+
+18. Many post requests for a nutritionplan
+   
+   Scenario:
+   Test a big number of post requests performed for a nutritionplan
+
+   Steps:
+   1. Post a big number of nutritionplans
+   2. Make a get on the previously created nutritionplans
+   3. Analyze response code
+   4. Analyze the content.
+
+19. Many post requests for a meal
+   
+   Scenario:
+   Test a big number of post requests performed for a meal
+
+   Steps:
+   1. Post a big number of meals
+   2. Make a get on the previously created meals
+   3. Analyze response code
+   4. Analyze the content.
+
+20. Many post requests for a mealitem
+   
+   Scenario:
+   Test a big number of post requests performed for a mealitem
+
+   Steps:
+   1. Post a big number of mealitems
+   2. Make a get on the previously created mealitems
+   3. Analyze response code
+   4. Analyze the content.
+
+21. Delete all workouts
+   
+   Scenario:
+   Test a delete request performed for all workouts
+
+   Steps:
+   1. Post workouts
+   2. Delete the workouts
+   3. Analyze response code
+   4. Analyze the content.
+
+22. Delete all nutritionplans
+   
+   Scenario:
+   Test a delete request performed for all nutritionplans
+
+   Steps:
+   1. Post nutritionplans
+   2. Delete the nutritionplans
+   3. Analyze response code
+   4. Analyze the content.
+
