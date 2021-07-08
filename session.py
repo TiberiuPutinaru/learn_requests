@@ -258,47 +258,29 @@ class mySession:
         response_post_mealitem = self.s.post(post_mealitemURL, json = payload_mealitem , headers=mealitem_post_headers )
         return [response_post_mealitem , mySession.check(response_post_mealitem)]
     
-    def delete_workout(self, workoutId):
+    def delete_item(self, type, id):
         """ 
-        Delete a specific workout
+        Delete a specific workout or nutritionplan
 
-        :param workoutId: the id of the workout to delete
+        :param id: the id of the workout or nutritionplan to delete
 
         returns:
             list: [response of the request, check(response)]
         """
         # create the URL
-        delete_workoutURL = self.base_URL + 'workout/' + str(workoutId) 
+        delete_URL = self.base_URL + type +'/' + str(id) 
 
         # create referer and headers
-        workout_delete_headers = self.headers
-        delete_workoutReferer = self.base_workoutReferer + str(workoutId) +  "/view/"
-        workout_delete_headers['Referer'] = delete_workoutReferer
+        delete_headers = self.headers
+        if(type == 'workout'):
+            delete_Referer = self.base_nutritionReferer + str(id) +  "/view/"
+        else:
+            delete_Referer = self.base_workoutReferer + str(id) +  "/view/"
+        delete_headers['Referer'] = delete_Referer
 
         # make the request
-        response_delete_workout = self.s.delete(delete_workoutURL, headers= workout_delete_headers)
-        return [response_delete_workout, mySession.check(response_delete_workout)]
-    
-    def delete_nutritionplan(self, nutritionplanId):
-        """ 
-        Delete a specific nutritionplan
-
-        :param nutritionplanId: the id of the nutritionplan to delete
-
-        returns:
-            list: [response of the request, check(response)]
-        """
-        # create the URL
-        delete_nutritionplanURL = self.base_URL + 'nutritionplan/' + str(nutritionplanId) 
-
-        # create referer and headers
-        nutritionplan_delete_headers = self.headers
-        delete_nutritionplanReferer = self.base_nutritionReferer + str(nutritionplanId) +  "/view/"
-        nutritionplan_delete_headers['Referer'] = delete_nutritionplanReferer
-
-        # make the request
-        response_delete_nutritionplan = self.s.delete(delete_nutritionplanURL, headers= nutritionplan_delete_headers)
-        return [response_delete_nutritionplan, mySession.check(response_delete_nutritionplan)]
+        response_delete = self.s.delete(delete_URL, headers= delete_headers)
+        return [response_delete, mySession.check(response_delete)]
     
     #get requests for certain ids
 
@@ -587,7 +569,7 @@ class mySession:
         """
 
         for workout_id in self.workout_ids:
-            self.delete_workout(workout_id)
+            self.delete_item('workout', workout_id)
 
         for nutritionplan_id in self.nutritionplan_ids:
-            self.delete_nutritionplan(nutritionplan_id)
+            self.delete_item('nutritionplan', nutritionplan_id)
