@@ -4,9 +4,9 @@ import toml
 
 session1 = mySession()
 
-# req1 = session1.get("workout")
+#req1 = session1.get("workout")
 # req3 = session1.post_workout(), 
-# req4 = session1.post_training(280895, 'mamamama', [6, 7])
+#req4 = session1.post_training(280895, 'mamamama', [6, 7])
 # req5 = session1.post_exercise(28089544444444, 142834, 279)
 # req6 = session1.post_nutritionplan()
 # req7 = session1.post_meal(75496)
@@ -97,3 +97,9 @@ session1 = mySession()
 
 
 session1.pass_toml('.\data.toml')
+# req_del = session1.delete_workout(283311)
+# mySession.show_request_details(req_del)
+
+# req_del = session1.delete_nutritionplan(76819)
+#mySession.show_request_details(req1)
+session1.cleanUp()

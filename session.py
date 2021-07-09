@@ -26,6 +26,10 @@ class mySession:
     base_workoutReferer = "https://wger.de/en/workout/"
     base_nutritionReferer = "https://wger.de/en/nutrition/"
 
+    #workout and nutritionplan created ids
+    workout_ids = []
+    nutritionplan_ids = []
+
 
     def __init__(self):
         cookies = self.login_and_cookies()
@@ -33,7 +37,7 @@ class mySession:
         #extract csrftoken and sessionId
         self.csrftoken = cookies[0]
         self.sessionId = cookies[1]
-
+        
         #create login header
         self.headers = {
         'Content-Type': 'application/json',
@@ -112,6 +116,9 @@ class mySession:
         
         # make the request
         response_post_workout = self.s.post(post_workoutURL, headers= workout_post_headers)
+
+        #add id to created ids list
+        mySession.add_post_id(response_post_workout,self.workout_ids)
         return [response_post_workout, mySession.check(response_post_workout)]
     
     def post_training(self, workoutId, description, days):
@@ -139,7 +146,7 @@ class mySession:
             'description':f'{description}',
             'day':days
             }
-
+     
         # make the request
         response_post_training = self.s.post(post_trainingURL, json= payload_training ,headers = training_post_headers)
         return [response_post_training, mySession.check(response_post_training)]
@@ -180,13 +187,19 @@ class mySession:
         returns:
             list: [response of the request, check(response)]
         """
-
+        # create the URL
         post_nutritionplanURL = self.base_URL + "nutritionplan/"
+
+        # create referer and headers
         nutritionplan_post_headers = self.headers
         post_nutritionplanReferer = self.base_nutritionReferer + "overview/"
         nutritionplan_post_headers['Referer'] = post_nutritionplanReferer
 
+        # make the request
         response_post_nutritionplan = self.s.post(post_nutritionplanURL,headers= nutritionplan_post_headers)
+
+        #add id to created ids list
+        mySession.add_post_id(response_post_nutritionplan, self.nutritionplan_ids)
         return [response_post_nutritionplan, mySession.check(response_post_nutritionplan)]
 
     def post_meal(self, nutritionplanId):
@@ -244,6 +257,30 @@ class mySession:
         # make the request
         response_post_mealitem = self.s.post(post_mealitemURL, json = payload_mealitem , headers=mealitem_post_headers )
         return [response_post_mealitem , mySession.check(response_post_mealitem)]
+    
+    def delete_item(self, type, id):
+        """ 
+        Delete a specific workout or nutritionplan
+
+        :param id: the id of the workout or nutritionplan to delete
+
+        returns:
+            list: [response of the request, check(response)]
+        """
+        # create the URL
+        delete_URL = self.base_URL + type +'/' + str(id) 
+
+        # create referer and headers
+        delete_headers = self.headers
+        if(type == 'workout'):
+            delete_Referer = self.base_workoutReferer + str(id) +  "/view/"
+        else:
+            delete_Referer = self.base_nutritionReferer + str(id) +  "/view/"
+        delete_headers['Referer'] = delete_Referer
+
+        # make the request
+        response_delete = self.s.delete(delete_URL, headers= delete_headers)
+        return [response_delete, mySession.check(response_delete)]
     
     #get requests for certain ids
 
@@ -512,4 +549,27 @@ class mySession:
 
         if nutritionplans_dict:
             self.parse_nutritionplans(nutritionplans_dict)
+    
 
+    @classmethod
+    def add_post_id(cls, response, ids):
+        """ 
+        Add an id of a created request object to a list with all created request objects
+        
+        """
+
+        id = json.loads(response.text).get('id')
+        ids.append(id)
+    
+        
+    def cleanUp(self):
+        """ 
+        Delete all the workouts and nutritionplans created in an object
+
+        """
+
+        for workout_id in self.workout_ids:
+            self.delete_item('workout', workout_id)
+
+        for nutritionplan_id in self.nutritionplan_ids:
+            self.delete_item('nutritionplan', nutritionplan_id)
