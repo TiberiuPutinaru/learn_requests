@@ -273,9 +273,9 @@ class mySession:
         # create referer and headers
         delete_headers = self.headers
         if(type == 'workout'):
-            delete_Referer = self.base_nutritionReferer + str(id) +  "/view/"
-        else:
             delete_Referer = self.base_workoutReferer + str(id) +  "/view/"
+        else:
+            delete_Referer = self.base_nutritionReferer + str(id) +  "/view/"
         delete_headers['Referer'] = delete_Referer
 
         # make the request
