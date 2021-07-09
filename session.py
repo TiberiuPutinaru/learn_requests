@@ -55,11 +55,15 @@ class mySession:
 
         :param response_list: ([request, mySession.check(request)])
 
+        returns:
+            json with status_code and content of the response
+
         """
         print(response_list[1])
         print(f"status code: {response_list[0].status_code}")
         print(f"response : {response_list[0].content}")
         print("\n")
+        return response_list[0]
     
     def login_and_cookies(self):
         """ 

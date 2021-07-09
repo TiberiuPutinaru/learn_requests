@@ -6,7 +6,6 @@
    Steps:
    1. Get a certain workout 
    2. Analyze response code
-   3. Analyze the content
    
 2. Get request for an unexisting workout
 
@@ -16,7 +15,6 @@
    Steps:
    1. Get an unexisting workout 
    2. Analyze response code
-   3. Analyze the content
 
 3. Get request for a certain exercise
 
@@ -26,7 +24,6 @@
    Steps:
    1. Get a certain exercise
    2. Analyze response code
-   3. Analyze the content
 
 4. Get request for an unexisting exercise
 
@@ -36,7 +33,6 @@
    Steps:
    1. Get an unexisting exercise
    2. Analyze response code
-   3. Analyze the content
 
 5. Get request for all workouts
 
@@ -46,7 +42,6 @@
    Steps:
    1. Get all workouts
    2. Analyze response code
-   3. Analyze the content
 
 6. Get request for all exercises
 
@@ -56,7 +51,6 @@
    Steps:
    1. Get all exercises
    2. Analyze response code
-   3. Analyze the content.
 
 7. Post request for a workout
 
