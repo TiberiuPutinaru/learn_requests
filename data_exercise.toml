@@ -1,0 +1,5 @@
+[workouts.workout1.trainings.training1]
+description = "ce frum e"
+days = [ 6, 7,]
+[workouts.workout1.trainings.training1.exercises.exercise1]
+exerciseid = 279

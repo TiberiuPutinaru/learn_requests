@@ -1,33 +1,51 @@
 from session import mySession
 import toml
+import json
 
 
 session1 = mySession()
 
 
-def get_workout(workoutId):
-    req = session1.get("workout",workoutId)
-    return mySession.show_request_details(req)
+# def get_workout(workoutId):
+#     req = session1.get("workout",workoutId)
+#     return mySession.show_request_details(req)
 
-def get_workout_unexisting(workoutId):
-    req = session1.get("workout",workoutId)
-    return mySession.show_request_details(req)
+# def get_workout_unexisting(workoutId):
+#     req = session1.get("workout",workoutId)
+#     return mySession.show_request_details(req)
 
-def get_exercise(exerciseId):
-    req = session1.get("exercise",exerciseId)
-    return mySession.show_request_details(req)
+# def get_exercise(exerciseId):
+#     req = session1.get("exercise",exerciseId)
+#     return mySession.show_request_details(req)
 
-def get_exercise_unexisting(exerciseId):
-    req = session1.get("exercise",exerciseId)
-    return mySession.show_request_details(req)
+# def get_exercise_unexisting(exerciseId):
+#     req = session1.get("exercise",exerciseId)
+#     return mySession.show_request_details(req)
 
-def get_workouts():
-    req = session1.get("workout")
-    return mySession.show_request_details(req)
+# def get_workouts():
+#     req = session1.get("workout")
+#     return mySession.show_request_details(req)
 
-def get_exercises():
-    req = session1.get("exercise")
-    return mySession.show_request_details(req)
+# def get_exercises():
+#     req = session1.get("exercise")
+#     return mySession.show_request_details(req)
+
+# def post_workout():
+#     req = session1.post_workout()
+#     id = json.loads(req[0].text).get('id')
+#     response = get_workout(id)
+#     return response
+
+# def post_training(workoutId, description, days):
+#     req = session1.post_training(workoutId, description, days)
+#     return mySession.show_request_details(req)
+
+# def post_training_unexisting_workout(workoutId, description='tsaa', days= [6,7]):
+#     req = session1.post_training(workoutId, description, days)
+#     return mySession.show_request_details(req)
+
+
+
 
 
 # req3 = session1.post_workout(), 
@@ -123,7 +141,7 @@ def get_exercises():
 # test_toml = toml.dumps(test_dict2)
 
 
-# session1.pass_toml('.\data.toml')
+# session1.pass_toml('.\data_workout.toml')
 # req_del = session1.delete_workout(283311)
 # mySession.show_request_details(req_del)
 

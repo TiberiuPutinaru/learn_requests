@@ -61,7 +61,6 @@
    1. Create a workout
    2. Make a get on the previously created workout
    3. Analyze response code
-   4. Analyze the content.
 
 
 8. Post request for a training
