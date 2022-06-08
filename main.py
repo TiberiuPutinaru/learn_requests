@@ -1,23 +1,68 @@
 from session import mySession
 import toml
+import json
 
 
 session1 = mySession()
 
-#req1 = session1.get("workout")
+
+# def get_workout(workoutId):
+#     req = session1.get("workout",workoutId)
+#     return mySession.show_request_details(req)
+
+# def get_workout_unexisting(workoutId):
+#     req = session1.get("workout",workoutId)
+#     return mySession.show_request_details(req)
+
+# def get_exercise(exerciseId):
+#     req = session1.get("exercise",exerciseId)
+#     return mySession.show_request_details(req)
+
+# def get_exercise_unexisting(exerciseId):
+#     req = session1.get("exercise",exerciseId)
+#     return mySession.show_request_details(req)
+
+# def get_workouts():
+#     req = session1.get("workout")
+#     return mySession.show_request_details(req)
+
+# def get_exercises():
+#     req = session1.get("exercise")
+#     return mySession.show_request_details(req)
+
+# def post_workout():
+#     req = session1.post_workout()
+#     id = json.loads(req[0].text).get('id')
+#     response = get_workout(id)
+#     return response
+
+# def post_training(workoutId, description, days):
+#     req = session1.post_training(workoutId, description, days)
+#     return mySession.show_request_details(req)
+
+# def post_training_unexisting_workout(workoutId, description='tsaa', days= [6,7]):
+#     req = session1.post_training(workoutId, description, days)
+#     return mySession.show_request_details(req)
+
+
+
+
+
 # req3 = session1.post_workout(), 
 #req4 = session1.post_training(280895, 'mamamama', [6, 7])
 # req5 = session1.post_exercise(28089544444444, 142834, 279)
 # req6 = session1.post_nutritionplan()
 # req7 = session1.post_meal(75496)
 # req8 = session1.post_mealitem(280895, 188455, 9842, 400)
-#req9 = session1.get("workout",279811)
+# req9 = session1.get("workout")
 # req11 = session1.get("exercise")
 # req12 = session1.get("exercise", 345)
 # req13 = session1.get("nutritionplan")
 # req14 = session1.get("nutritionplan",75157)
 # req15 = session1.get("meal")
 # req16 = session1.get("meal",187530)
+
+# mySession.show_request_details(req1)
 
 # reqs = [req1 , req3 ,req4 ,req5, req6, req7, req8, req9, req11, req12,req13, req14, req15, req16]
 
@@ -96,7 +141,7 @@ session1 = mySession()
 # test_toml = toml.dumps(test_dict2)
 
 
-session1.pass_toml('.\data.toml')
+# session1.pass_toml('.\data_workout.toml')
 # req_del = session1.delete_workout(283311)
 # mySession.show_request_details(req_del)
 

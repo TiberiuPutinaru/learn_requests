@@ -55,11 +55,15 @@ class mySession:
 
         :param response_list: ([request, mySession.check(request)])
 
+        returns:
+            json with status_code and content of the response
+
         """
         print(response_list[1])
         print(f"status code: {response_list[0].status_code}")
         print(f"response : {response_list[0].content}")
         print("\n")
+        return response_list[0]
     
     def login_and_cookies(self):
         """ 
@@ -283,6 +287,28 @@ class mySession:
         return [response_delete, mySession.check(response_delete)]
     
     #get requests for certain ids
+    
+    def get_ids(self, type):
+         # create the URL
+        get_URL = self.base_URL + type + "/"
+
+        # make the request
+        response_get = self.s.get(get_URL, headers= self.headers)
+
+        ids =  []
+        next_URL = 0
+        
+        # search for the match trainings
+        while  next_URL != None:
+            results = json.loads(response_get.text).get('results')
+            for result in results:
+                ids.append(result.get('id'))
+            next_URL = json.loads(response_get.text).get('next')
+            if next_URL != None:
+                response_get = self.s.get(next_URL, headers= self.headers)
+
+        return ids
+
 
     def get_trainings(self, workoutId):
         """ 
@@ -429,14 +455,14 @@ class mySession:
         :param workouts_dict: the workouts dictionary resulted from the toml
             
         """
-
         # make a post request for every workout
         for workout_value in workouts_dict.values():
                 req_workout = self.post_workout()
+                self.req_toml_workout = req_workout[0]
                 
                 mySession.show_request_details(req_workout)
                 # if workout has values get the id of the workout created and the trainings values
-                if workout_value:
+                if bool(workout_value):
                     workout_id = json.loads(req_workout[0].text).get('id')
                     trainings_dict = workout_value.get('trainings')
 
@@ -454,6 +480,7 @@ class mySession:
         # make a post request for every training
         for training_value in trainings_dict.values():
             req_training = self.post_training(workout_id,training_value.get('description'),training_value.get('days'))
+            self.req_toml_training = req_training[0]
                         
             mySession.show_request_details(req_training)
             # if training has values get the id of the training created and the exercises values
@@ -474,6 +501,8 @@ class mySession:
         # make a post request for every exercise
         for exercise_value in exercises_dict.values():
             req_exercise = self.post_exercise(workout_id,training_id,exercise_value.get('exerciseid'))
+            self.req_toml_exercise = req_exercise[0]
+
             mySession.show_request_details(req_exercise)
     
     def parse_nutritionplans(self, nutritionplans_dict):
@@ -535,6 +564,7 @@ class mySession:
 
         :param path: path of the toml
         """
+
         # convert TOML into dict
         with open(path) as file:
             toml_data_dict = toml.load(file)
